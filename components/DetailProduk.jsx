@@ -94,7 +94,7 @@ export default function DetailProduk({ produk, produkTerkait }) {
         </div>
       </article>
 
-      {produkTerkait.length ? (
+      {produkTerkait?.length ? (
         <section aria-labelledby="judul-produk-terkait" className="mt-10 border-t border-garis pt-7">
           <h2 id="judul-produk-terkait" className="text-2xl font-extrabold">Produk terkait</h2>
           <div className="mt-4 grid grid-cols-2 gap-3 sm:gap-4 xl:grid-cols-3 2xl:grid-cols-4">
@@ -102,7 +102,7 @@ export default function DetailProduk({ produk, produkTerkait }) {
           </div>
         </section>
       ) : null}
-      <p className="mt-6 inline-flex rounded-full border border-dashed border-garis bg-white/70 px-3 py-1 text-[10px] text-teks-lembut">Data contoh — akan diganti dari database (US-02).</p>
+
     </div>
   );
 }
