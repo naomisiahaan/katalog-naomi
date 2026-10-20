@@ -4,6 +4,24 @@ import { redirect } from "next/navigation";
 import { buatKoneksiAdmin } from "@/lib/supabase/admin";
 
 /**
+ * Memeriksa apakah pengguna yang memanggil Server Action sudah login sebagai admin.
+ * Memenuhi aturan keamanan nomor 3: setiap aksi yang mengubah data wajib memeriksa di server bahwa admin sudah login.
+ */
+export async function pastikanAdmin() {
+  const supabase = await buatKoneksiAdmin();
+  const {
+    data: { user },
+    error,
+  } = await supabase.auth.getUser();
+
+  if (error || !user) {
+    throw new Error("Unauthorized: Anda harus login sebagai admin.");
+  }
+
+  return { supabase, user };
+}
+
+/**
  * Server Action untuk login admin memakai Supabase Auth.
  */
 export async function loginAdmin(prevStateOrFormData, maybeFormData) {
@@ -91,15 +109,7 @@ export async function gantiPassword(prevStateOrFormData, maybeFormData) {
   }
 
   try {
-    const supabase = await buatKoneksiAdmin();
-    const {
-      data: { user },
-      error: userError,
-    } = await supabase.auth.getUser();
-
-    if (userError || !user) {
-      return { error: "Anda harus login terlebih dahulu untuk mengganti password." };
-    }
+    const { supabase } = await pastikanAdmin();
 
     const { error: updateError } = await supabase.auth.updateUser({
       password: passwordBaru,
@@ -111,6 +121,9 @@ export async function gantiPassword(prevStateOrFormData, maybeFormData) {
 
     return { success: true, pesan: "Password berhasil diganti." };
   } catch (err) {
+    if (err.message?.includes("Unauthorized")) {
+      return { error: "Anda harus login terlebih dahulu untuk mengganti password." };
+    }
     return { error: err.message || "Terjadi kesalahan pada server saat mengganti password." };
   }
 }
