@@ -61,3 +61,58 @@ export async function keluarAdmin() {
   redirect("/admin/login");
 }
 
+/**
+ * Server Action untuk mengganti password admin yang sedang login.
+ */
+export async function gantiPassword(prevStateOrFormData, maybeFormData) {
+  const formData = maybeFormData instanceof FormData ? maybeFormData : prevStateOrFormData;
+  const passwordBaru = (
+    formData?.get?.("password_baru") ||
+    formData?.get?.("password") ||
+    ""
+  ).toString();
+  const konfirmasiPassword = (
+    formData?.get?.("konfirmasi_password") ||
+    formData?.get?.("konfirmasi") ||
+    formData?.get?.("confirm_password") ||
+    ""
+  ).toString();
+
+  if (!passwordBaru) {
+    return { error: "Password baru wajib diisi." };
+  }
+
+  if (passwordBaru.length < 8) {
+    return { error: "Password baru minimal 8 karakter." };
+  }
+
+  if (passwordBaru !== konfirmasiPassword) {
+    return { error: "Password baru dan konfirmasi password harus sama." };
+  }
+
+  try {
+    const supabase = await buatKoneksiAdmin();
+    const {
+      data: { user },
+      error: userError,
+    } = await supabase.auth.getUser();
+
+    if (userError || !user) {
+      return { error: "Anda harus login terlebih dahulu untuk mengganti password." };
+    }
+
+    const { error: updateError } = await supabase.auth.updateUser({
+      password: passwordBaru,
+    });
+
+    if (updateError) {
+      return { error: updateError.message || "Gagal mengganti password." };
+    }
+
+    return { success: true, pesan: "Password berhasil diganti." };
+  } catch (err) {
+    return { error: err.message || "Terjadi kesalahan pada server saat mengganti password." };
+  }
+}
+
+
