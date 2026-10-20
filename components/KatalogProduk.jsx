@@ -55,7 +55,7 @@ function IkonFilter() {
   return <svg viewBox="0 0 24 24" className="h-4 w-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true"><path d="M4 6h16M7 12h10m-7 6h4" /></svg>;
 }
 
-export default function KatalogProduk({ daftarProduk }) {
+export default function KatalogProduk({ daftarProduk = [] }) {
   const inputCari = useRef(null);
   const [state, setState] = useState({
     kueri: "",
@@ -210,9 +210,9 @@ export default function KatalogProduk({ daftarProduk }) {
             </div>
           )}
 
-          <p className="mt-5 inline-flex rounded-full border border-dashed border-garis bg-white/70 px-3 py-1 text-[10px] text-teks-lembut">
-            Data contoh — akan diganti dari database (US-01).
-          </p>
+
+
+
         </section>
       </div>
 
