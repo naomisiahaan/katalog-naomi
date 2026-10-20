@@ -3,6 +3,8 @@ import { buatPesanPemesanan, linkWhatsApp } from "@/lib/toko";
 
 // US-03: tombol membuka WhatsApp toko dengan pesan otomatis berisi nama, jumlah, dan total.
 export default function TombolWhatsApp({ produk, jumlah = 1, varian = null, className = "" }) {
+  if (!produk) return null;
+
   const namaPesan = varian ? `${produk.nama} (${varian})` : produk.nama;
   const total = (produk.harga + (produk.tambahanHarga || 0)) * jumlah;
   const pesan = buatPesanPemesanan({ namaProduk: namaPesan, jumlah, total });
