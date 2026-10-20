@@ -1,11 +1,20 @@
 import "./globals.css";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import { toko } from "@/lib/toko";
+import TataLetakUtama from "@/components/TataLetakUtama";
+import { deskripsiMeta, judulBeranda, toko } from "@/lib/toko";
 
 export const metadata = {
-  title: toko.nama,
-  description: toko.tagline,
+  title: {
+    default: judulBeranda,
+    template: `%s | ${toko.nama}`,
+  },
+  description: deskripsiMeta,
+  openGraph: {
+    type: "website",
+    locale: "id_ID",
+    siteName: toko.nama,
+    title: judulBeranda,
+    description: deskripsiMeta,
+  },
 };
 
 export default function RootLayout({ children }) {
@@ -19,10 +28,8 @@ export default function RootLayout({ children }) {
           href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap"
         />
       </head>
-      <body className="flex min-h-screen flex-col font-sans antialiased">
-        <Header />
-        <main className="mx-auto w-full max-w-5xl flex-1 px-4">{children}</main>
-        <Footer />
+      <body className="min-h-screen font-sans antialiased">
+        <TataLetakUtama>{children}</TataLetakUtama>
       </body>
     </html>
   );

@@ -6,17 +6,23 @@ Ikuti panduan ini setiap kali membuat atau mengubah tampilan, supaya semua halam
 
 | Token | Nilai awal | Dipakai untuk |
 | --- | --- | --- |
-| `latar` | `#ffffff` | Latar halaman dan kartu |
-| `permukaan` | `#f1f5f2` | Latar bagian sekunder, footer, kepala tabel |
-| `garis` | `#dde5e0` | Garis tepi dan pemisah |
-| `teks` | `#1b2420` | Teks utama |
-| `teks-lembut` | `#5b6a62` | Teks pendukung: kategori, keterangan |
+| `latar` | `#fffaf5` | Latar kartu dan halaman admin |
+| `permukaan` | `#f8eee4` | Latar bagian sekunder |
+| `garis` | `#e8d8ca` | Garis tepi dan pemisah |
+| `teks` | `#34271f` | Teks utama |
+| `teks-lembut` | `#65564b` | Teks pendukung: kategori, keterangan |
 | `utama` | `#1f6b4f` | Tombol utama, tautan aktif, nama toko |
 | `utama-gelap` | `#154d39` | Tombol utama saat disorot |
+| `aksen` / `aksen-hover` | `#a94308` / `#873506` | Filter dan kategori aktif |
+| `karamel` / `karamel-hover` | `#805333` / `#684128` | Tombol tambah ke keranjang |
+| `peach` | `#f8e2d2` | Latar aktif dan aksen lembut |
+| `panel` | `#fffdf9` | Panel katalog dan keranjang |
 | `harga` / `harga-latar` | `#7a4e09` / `#fbefd8` | Label harga |
+| `emas` | `#a16207` | Aksen hangat: nama toko di header, titik logo |
 | `bahaya` | `#b42318` | Aksi hapus dan pesan error |
 
 Pakai sebagai kelas Tailwind, misalnya `bg-utama`, `text-teks-lembut`, `border-garis`. Jangan menulis kode warna langsung di kelas.
+Warna teks dan tombol menggunakan pasangan kontras tinggi untuk keterbacaan; jaga rasio WCAG AA ketika mengganti token.
 
 ## Huruf
 
@@ -33,6 +39,7 @@ Gunakan komponen yang sudah ada sebelum membuat yang baru:
 | --- | --- |
 | `Tombol` | Tombol dan tautan berbentuk tombol (varian `utama`, `garis`, `bahaya`) |
 | `Input` | Kolom isian beserta label, termasuk textarea |
+| `Logo` | Logo toko (SVG huruf N), diganti dengan logo asli lewat file ini saja |
 | `KartuProduk` | Kartu di katalog |
 | `TabelProduk` | Daftar produk di halaman admin |
 | `FormProduk` | Form tambah dan ubah produk |
@@ -40,9 +47,11 @@ Gunakan komponen yang sudah ada sebelum membuat yang baru:
 
 ## Tata letak
 
-- Lebar konten maksimal `max-w-5xl`, rata kiri.
-- Katalog: 2 kolom di HP, 3 kolom di layar lebar.
-- Selalu cek tampilan di lebar HP (sekitar 390 px).
+- Halaman publik memakai panel katalog krem dengan navigasi samping dan ringkasan keranjang.
+- Navigasi penuh tampil pada layar lebar, menyempit menjadi ikon pada tablet, dan berubah menjadi drawer serta navigasi bawah pada ponsel.
+- Katalog memakai 2 kolom pada ponsel/tablet dan 3 kolom pada layar lebar.
+- Gunakan radius besar, bayangan lembut, dan hindari scroll horizontal halaman.
+- Selalu cek tampilan pada lebar 360, 768, 1024, dan 1440 px.
 
 ## Bahasa
 
